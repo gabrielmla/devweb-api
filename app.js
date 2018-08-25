@@ -18,8 +18,20 @@ if (ENV == 'production') {
 } else {
   db_url = db.local_url;
 }
-
 mongoose.connect(db_url, { useNewUrlParser: true });
+
+require('./config/passport')(passport);
+app.use(session({
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 60 * 60 // = 30 minutos de sessão
+  }),
+  secret: process.env.SESSION_SECRET || 'local-secret',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // parse application/json
 app.use(bodyParser.json());
@@ -37,6 +49,12 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.get('/', (req, res) => {
 	res.send('Fanfic API.');
 });
+
+var userRoutes = require('./routes/user');
+app.use('/user', userRoutes);
+
+var authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
 
 // ==================================
 
