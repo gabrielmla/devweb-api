@@ -15,7 +15,9 @@ var UserSchema = new Schema({
 	username: {
 		type: String,
 		required: true,
-		unique: true
+		unique: true,
+		minlength: 6,
+		maxlength: 18
 	},
 	email: {
 		type: String,
@@ -28,7 +30,8 @@ var UserSchema = new Schema({
 	},
 	password: {
 		type: String,
-		required: true
+		required: true,
+		select: false
 	}
 });
 

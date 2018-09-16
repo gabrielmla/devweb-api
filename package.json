@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./app.js",
-    "start-clean": "node ./app.js"
+    "doc": "apidoc -i controllers/ -o public/apidoc -t public/docTemplate"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,6 @@
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "swagger-express": "^1.0.5",
     "underscore": "^1.9.1"
   },
   "devDependencies": {
