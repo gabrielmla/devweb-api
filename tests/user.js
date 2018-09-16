@@ -1,6 +1,6 @@
 const app = require('../app');
 const request = require('supertest');
-const User = require('../models/User')
+const User = require('../user/user.model')
 
 describe('Index User', () => {
   it('respond with json containing a list of all users', (done) => {
@@ -32,7 +32,8 @@ describe('Create User', () => {
   let data = {
     "username": "dummy",
     "email": "dummy@test.com",
-    "password": "dummy"
+    "password": "dummy",
+    "gender": "other"
   }
   it('respond with 200 created', (done) => {
     request(app)

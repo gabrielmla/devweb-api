@@ -62,10 +62,10 @@ app.get('/', (req, res) => {
 	res.send('Fanfic API.');
 });
 
-var userRoutes = require('./routes/user');
+var userRoutes = require('./user/user.router');
 app.use('/user', userRoutes);
 
-var authRoutes = require('./routes/auth');
+var authRoutes = require('./user/auth.router');
 app.use('/auth', authRoutes);
 
 // start app ===============================================

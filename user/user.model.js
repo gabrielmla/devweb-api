@@ -33,15 +33,28 @@ var UserSchema = new Schema({
 		type: String,
 		required: true,
 		select: false
-	}
+	},
+  birthday: {
+    type: Date
+  },
+  gender : {
+    type: String,
+    required: true,
+    enum: ['male', 'female', 'other']
+  },
+  description: {
+    type: String,
+    maxlength: 140,
+    default: "No description."
+  }
 });
 
 UserSchema.methods.generateHash = (password) => {
   return bcrypt.hash(password, bcrypt.genSaltSync(10), null);
 };
 
-UserSchema.methods.validPassword = (password) => {
-  return bcrypt.compareSync(password, this.password);
+UserSchema.methods.validPassword = (password, userPassword) => {
+	return bcrypt.compareSync(password, userPassword);
 };
 
 var User = mongoose.model('User', UserSchema);

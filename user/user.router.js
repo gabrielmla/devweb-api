@@ -1,6 +1,7 @@
-var User = require('../models/User');
-var RequestStatus = require('../constants/requestStatus');
-var RequestMsgs = require('../constants/requestMsgs')
+var express = require('express');
+var router = express.Router();
+
+var userController = require('./user.controller');
 
 /**
  * @api {get} /user Get all Users
@@ -13,15 +14,7 @@ var RequestMsgs = require('../constants/requestMsgs')
  * @apiSuccess {String} user.username  Username name of the User.
  * @apiSuccess {String} user.email  Email of the User.
  */
-exports.index = (req, res) => {
-  User.find({})
-	  .catch((err) => {
-	    res.status(RequestStatus.BAD_REQUEST).send(err);
-	  })
-	  .then((result) => {
-	    res.status(RequestStatus.OK).json({ users: result });
-	  });
-};
+router.get('/', userController.index);
 
 /**
  * @api {get} /user/:id Get User
@@ -35,15 +28,7 @@ exports.index = (req, res) => {
  * @apiSuccess {String} username  Username name of the User.
  * @apiSuccess {String} email  Email of the User.
  */
-exports.show = (req, res) => {
-	User.findById(req.params.user_id)
-		.then((user) => {
-			res.status(RequestStatus.OK).json(user);
-		})
-		.catch((error) => {
-			res.status(RequestStatus.BAD_REQUEST).json(error);
-		});
-};
+router.get('/:user_id', userController.show);
 
 /**
  * @api {post} /user Create a User
@@ -61,27 +46,7 @@ exports.show = (req, res) => {
  * @apiSuccess {String} result.email  Email of the User.
  * @apiSuccess {String} msg Response message.
  */
-exports.create = (req, res) => {
-  var user = new User(req.body);
-  user.profile_name = req.body.username;
-
-  user.generateHash(req.body.password)
-  	.then((hash) => {
-  		user.password = hash;
-  		user.save((err, createdUser) => {
-  			if (err && err.name === 'MongoError' && err.code === 11000) {
-					res.status(RequestStatus.FORBIDDEN).json(RequestMsgs.DUPLICATED_ENTITY);
-        } else if (err) {
-          res.status(RequestStatus.BAD_REQUEST).json(err);
-        } else {
-          res.status(RequestStatus.OK).json({ result: createdUser, msg: 'User created.' });
-        }
-  		});
-  	})
-  	.catch((error) => {
-  		res.status(RequestStatus.BAD_REQUEST).json(err);
-  	});
-};
+router.post('/', userController.create);
 
 /**
  * @api {put} /user/:id Update a User
@@ -99,15 +64,7 @@ exports.create = (req, res) => {
  * @apiSuccess {String} result.email  Email of the User.
  * @apiSuccess {String} msg Response message.
  */
-exports.update = (req, res) => {
-	User.updateOne({ _id: req.params.user_id }, { $set: req.body })
-		.then((updatedUser) => {
-			res.status(RequestStatus.OK).json({result: updatedUser, msg: 'User updated.'});
-		})
-		.catch((error) => {
-			res.status(RequestStatus.BAD_REQUEST).json(error);
-		});
-};
+router.put('/:user_id', userController.update);
 
 /**
  * @api {delete} /user/:id Delete User
@@ -119,12 +76,6 @@ exports.update = (req, res) => {
  *
  * @apiSuccess msg Response message.
  */
-exports.delete = (req, res) => {
-	User.deleteOne({ _id: req.params.user_id })
-		.then(() => {
-			res.status(RequestStatus.OK).json({msg: 'User deleted.'});
-		})
-		.catch((error) => {
-			res.status(RequestStatus.BAD_REQUEST).json(error);
-		});
-};
+router.delete('/:user_id', userController.delete);
+
+module.exports = router;
