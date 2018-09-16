@@ -10,13 +10,14 @@ var validateEmail = function(email) {
 var UserSchema = new Schema({
 	profile_name: {
 		type: String,
-		default: this.username
+		minlength: 5,
+		maxlength: 18
 	},
 	username: {
 		type: String,
 		required: true,
 		unique: true,
-		minlength: 6,
+		minlength: 5,
 		maxlength: 18
 	},
 	email: {
@@ -35,11 +36,11 @@ var UserSchema = new Schema({
 	}
 });
 
-UserSchema.methods.generateHash = function(password) {
+UserSchema.methods.generateHash = (password) => {
   return bcrypt.hash(password, bcrypt.genSaltSync(10), null);
 };
 
-UserSchema.methods.validPassword = function(password) {
+UserSchema.methods.validPassword = (password) => {
   return bcrypt.compareSync(password, this.password);
 };
 

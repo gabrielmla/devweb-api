@@ -1,23 +1,23 @@
 {
-  "name": "devweb-api",
+  "name": "fanfic-api",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./app.js",
+    "test": "mocha './tests/user.js'",
+    "start": "node ./app.js",
     "doc": "apidoc -i controllers/ -o public/apidoc -t public/docTemplate"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gabrielmla/devweb-api.git"
+    "url": "git+https://github.com/gabrielmla/fanfic-api.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gabrielmla/devweb-api/issues"
+    "url": "https://github.com/gabrielmla/fanfic-api/issues"
   },
-  "homepage": "https://github.com/gabrielmla/devweb-api#readme",
+  "homepage": "https://github.com/gabrielmla/fanfic-api#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
@@ -25,13 +25,13 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "method-override": "^3.0.0",
-    "mongoose": "^5.2.9",
+    "mongoose": "^5.2.13",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "underscore": "^1.9.1"
   },
   "devDependencies": {
-    "supertest": "^3.2.0"
+    "supertest": "^3.3.0"
   }
 }

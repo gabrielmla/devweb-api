@@ -10,7 +10,7 @@ var session        = require('express-session');
 var MongoStore     = require('connect-mongo')(session);
 
 var db = require('./config/db');
-var PORT = process.env.PORT || 8000;
+var PORT = process.env.PORT || 3000;
 var ENV = process.env.ENVIROMENT || 'development'
 
 var db_url;
@@ -20,6 +20,7 @@ if (ENV == 'production') {
   db_url = db.local_url;
 }
 mongoose.connect(db_url, { useNewUrlParser: true });
+mongoose.set('useCreateIndex', true);
 
 require('./config/passport')(passport);
 app.use(session({
@@ -66,17 +67,6 @@ app.use('/user', userRoutes);
 
 var authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
-
-// ======= API DOCUMENTAION
-// app.use(swagger.init(app, {
-//   apiVersion: '1.0',
-//   swaggerVersion: '1.0',
-//   basePath: 'http://localhost:3000',
-//   swaggerURL: '/swagger',
-//   swaggerJSON: '/api-docs.json',
-//   swaggerUI: './doc/swagger/',
-//   apis: ['./controllers/auth.js','./doc/api.yml']
-// }));
 
 // start app ===============================================
 app.listen(PORT);
