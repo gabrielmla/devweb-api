@@ -1,6 +1,6 @@
 const app = require('../app');
 const request = require('supertest');
-const User = require('../user/user.model')
+const User = require('../resources/user/user.model')
 
 describe('Index User', () => {
   it('respond with json containing a list of all users', (done) => {
