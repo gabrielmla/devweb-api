@@ -71,7 +71,7 @@ app.get('/', (req, res) => {
 var userRoutes = require('./resources/user/user.router');
 app.use('/user', userRoutes);
 
-var authRoutes = require('./resources/user/auth.router');
+var authRoutes = require('./resources/auth/auth.router');
 app.use('/auth', authRoutes);
 
 // start app ===============================================
