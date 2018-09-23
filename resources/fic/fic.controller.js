@@ -2,12 +2,8 @@ var Fic           = require('./fic.model');
 var RequestStatus = require('../../constants/requestStatus');
 var RequestMsgs   = require('../../constants/requestMsgs');
 
-var User          = require('./user.model');
-var RequestStatus = require('../../constants/requestStatus');
-var RequestMsgs   = require('../../constants/requestMsgs');
-
 exports.index = (req, res) => {
-  User.find({})
+  Fic.find({})
 	  .catch((err) => {
 	    res.status(RequestStatus.BAD_REQUEST).send(err);
 	  })
@@ -17,7 +13,7 @@ exports.index = (req, res) => {
 };
 
 exports.show = (req, res) => {
-	User.findById(req.params.fic_id)
+	Fic.findById(req.params.fic_id)
 		.then((fic) => {
 			res.status(RequestStatus.OK).json(fic);
 		})
@@ -39,7 +35,7 @@ exports.create = (req, res) => {
 };
 
 exports.update = (req, res) => {
-	User.updateOne({ _id: req.params.fic_id }, { $set: req.body })
+	Fic.updateOne({ _id: req.params.fic_id }, { $set: req.body })
 		.then((updatedFic) => {
 			res.status(RequestStatus.OK).json({result: updatedFic, msg: 'Fic updated.'});
 		})
@@ -49,7 +45,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-	User.deleteOne({ _id: req.params.fic_id })
+	Fic.deleteOne({ _id: req.params.fic_id })
 		.then(() => {
 			res.status(RequestStatus.OK).json({msg: 'Fic deleted.'});
 		})

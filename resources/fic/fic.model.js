@@ -55,4 +55,4 @@ var FicSchema = new Schema({
 
 var Fic = mongoose.model('Fic', FicSchema);
 
-module.exports = User;
+module.exports = Fic;
