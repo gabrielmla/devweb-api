@@ -1,6 +1,7 @@
 const app = require('../app');
 const request = require('supertest');
 const User = require('../resources/user/user.model')
+const userId = new mongoose.Types.ObjectId;
 
 describe('Index User', () => {
   it('respond with json containing a list of all users', (done) => {
@@ -15,7 +16,7 @@ describe('Index User', () => {
 describe('Show User', () => {
   it('respond with json containing a user', (done) => {
     request(app)
-    .get('/user/' + '5b9e68e242d9db1d93464716')
+    .get('/user/' + userId.toString())
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
     .expect((res) => {
@@ -61,6 +62,20 @@ describe('Create User', () => {
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
     .expect(400)
+    .end((err) => {
+      if (err) return done(err);
+      done();
+    });
+  });
+});
+
+describe('Delete User', () => {
+  it('Respond with User Deleted', (done) => {
+    request(app)
+    .delete('/user/' + userId.toString())
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .expect(200)
     .end((err) => {
       if (err) return done(err);
       done();

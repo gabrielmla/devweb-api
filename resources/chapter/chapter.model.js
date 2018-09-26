@@ -9,7 +9,8 @@ var ChapterSchema = new Schema({
 	},
 	author: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User'
+		ref: 'User',
+		required: true
 	},
   notes: {
     type: String,

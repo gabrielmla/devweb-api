@@ -9,11 +9,13 @@ var FicSchema = new Schema({
 	},
 	author: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User'
+		ref: 'User',
+		required: true
 	},
 	status: {
 		type: String,
-		enum: ['in progress', 'abandoned', 'complete']
+		enum: ['in progress', 'abandoned', 'complete'],
+		default: 'in progress'
 	},
 	synopsis: {
 		type: String,
@@ -34,7 +36,8 @@ var FicSchema = new Schema({
 	},
 	adult_content: {
 		type: Boolean,
-		required: true
+		required: true,
+		default: false
 	},
 	chapters: {
 		type: [mongoose.Schema.Types.ObjectId],

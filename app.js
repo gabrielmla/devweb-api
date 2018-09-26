@@ -22,6 +22,7 @@ if (ENV == 'production') {
 } else {
   db_url = db.local_url;
 }
+
 mongoose.connect(db_url, { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
 
@@ -52,7 +53,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-
 // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override'));
 
@@ -68,11 +68,17 @@ app.get('/', (req, res) => {
 	res.send('Fanfic API.');
 });
 
+var authRoutes = require('./resources/auth/auth.router');
+app.use('/auth', authRoutes);
+
 var userRoutes = require('./resources/user/user.router');
 app.use('/user', userRoutes);
 
-var authRoutes = require('./resources/auth/auth.router');
-app.use('/auth', authRoutes);
+var ficRoutes = require('./resources/fic/fic.router');
+app.use('/fic', ficRoutes);
+
+var chapterRoutes = require('./resources/chapter/chapter.router');
+app.use('/chapter', chapterRoutes);
 
 // start app ===============================================
 app.listen(PORT);
