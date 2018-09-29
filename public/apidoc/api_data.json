@@ -1,10 +1,105 @@
 [
   {
+    "type": "post",
+    "url": "/user",
+    "title": "Create user session",
+    "name": "Login",
+    "group": "Auth",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "username",
+            "description": "<p>Username name of the User.</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password of the User.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>Login successful.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "resources/auth/auth.router.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "delete",
+    "url": "/auth",
+    "title": "Delete user session",
+    "name": "Logout",
+    "group": "Auth",
+    "version": "1.0.0",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>Logged out.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "resources/auth/auth.router.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "get",
+    "url": "/auth",
+    "title": "Get the current logged user (if there is one)",
+    "name": "Status",
+    "group": "Auth",
+    "version": "1.0.0",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "user",
+            "description": "<p>The logged user.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>True = if there is a user | False = if there is not a user.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "resources/auth/auth.router.js",
+    "groupTitle": "Auth"
+  },
+  {
     "type": "delete",
     "url": "/user/:id",
     "title": "Delete User",
     "name": "DeleteUser",
     "group": "User",
+    "version": "1.0.0",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -29,8 +124,7 @@
         ]
       }
     },
-    "version": "0.0.0",
-    "filename": "controllers/user.js",
+    "filename": "resources/user/user.router.js",
     "groupTitle": "User"
   },
   {
@@ -39,6 +133,7 @@
     "title": "Get User",
     "name": "GetUser",
     "group": "User",
+    "version": "1.0.0",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -78,8 +173,7 @@
         ]
       }
     },
-    "version": "0.0.0",
-    "filename": "controllers/user.js",
+    "filename": "resources/user/user.router.js",
     "groupTitle": "User"
   },
   {
@@ -88,6 +182,7 @@
     "title": "Get all Users",
     "name": "GetUsers",
     "group": "User",
+    "version": "1.0.0",
     "success": {
       "fields": {
         "Success 200": [
@@ -122,8 +217,7 @@
         ]
       }
     },
-    "version": "0.0.0",
-    "filename": "controllers/user.js",
+    "filename": "resources/user/user.router.js",
     "groupTitle": "User"
   },
   {
@@ -132,6 +226,7 @@
     "title": "Create a User",
     "name": "PostUser",
     "group": "User",
+    "version": "1.0.0",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -197,8 +292,7 @@
         ]
       }
     },
-    "version": "0.0.0",
-    "filename": "controllers/user.js",
+    "filename": "resources/user/user.router.js",
     "groupTitle": "User"
   },
   {
@@ -207,6 +301,7 @@
     "title": "Update a User",
     "name": "PutUser",
     "group": "User",
+    "version": "1.0.0",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -272,8 +367,7 @@
         ]
       }
     },
-    "version": "0.0.0",
-    "filename": "controllers/user.js",
+    "filename": "resources/user/user.router.js",
     "groupTitle": "User"
   }
 ]

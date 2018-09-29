@@ -7,9 +7,14 @@ var ChapterSchema = new Schema({
 		required: true,
 		maxlength: 40
 	},
-	author: {
+	_author: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
+		required: true
+	},
+	_fic: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Fic',
 		required: true
 	},
   notes: {

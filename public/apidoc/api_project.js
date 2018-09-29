@@ -1,5 +1,5 @@
 define({
-  "name": "devweb-api",
+  "name": "fanfic-api",
   "version": "1.0.0",
   "description": "",
   "sampleUrl": false,
@@ -7,7 +7,7 @@ define({
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2018-09-16T00:54:32.926Z",
+    "time": "2018-09-29T20:27:33.463Z",
     "url": "http://apidocjs.com",
     "version": "0.17.6"
   }

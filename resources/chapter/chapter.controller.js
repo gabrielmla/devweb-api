@@ -24,7 +24,7 @@ exports.show = (req, res) => {
 
 exports.create = (req, res) => {
   var chapter = new Chapter(req.body);
-
+  
   chapter.save()
     .then((createdChapter) => {
       res.status(RequestStatus.OK).json({ result: createdChapter, msg: 'Chapter created.' });

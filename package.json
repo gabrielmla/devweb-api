@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha './tests/user.js'",
+    "test": "mocha 'tests/'",
     "start": "node ./app.js",
-    "doc": "apidoc -i controllers/ -o public/apidoc -t public/docTemplate"
+    "doc": "apidoc -i resources/ -o public/apidoc -t public/docTemplate"
   },
   "repository": {
     "type": "git",

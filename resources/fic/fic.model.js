@@ -7,7 +7,7 @@ var FicSchema = new Schema({
 		required: true,
 		maxlength: 40
 	},
-	author: {
+	_author: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 		required: true
@@ -24,7 +24,8 @@ var FicSchema = new Schema({
 	},
 	language: {
 		type: String,
-		required: true
+		required: true,
+		default: "pt-br"
 	},
 	category: {
 		type: String,
@@ -39,7 +40,7 @@ var FicSchema = new Schema({
 		required: true,
 		default: false
 	},
-	chapters: {
+	_chapters: {
 		type: [mongoose.Schema.Types.ObjectId],
 		ref: 'Chapter'
 	},
