@@ -24,8 +24,7 @@ var runTests = (dummyAuthor) => {
       "title": "dummy",
       "_author": dummyAuthor._id,
       "category": "dummy",
-      "genre": ["comedy", "yaoi"],
-      "text": "dummy fic about a gay foo bar."
+      "genre": ["comedy", "yaoi"]
     }
     it('respond with 200 created', (done) => {
       request(app)
