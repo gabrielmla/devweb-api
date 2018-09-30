@@ -1,19 +1,40 @@
 var Fic           = require('./fic.model');
+var dataStoreUtil = require('../../dataStore/utils');
 var RequestStatus = require('../../constants/requestStatus');
 var RequestMsgs   = require('../../constants/requestMsgs');
 
 exports.index = (req, res) => {
   Fic.find({})
 	  .catch((err) => {
-	    res.status(RequestStatus.BAD_REQUEST).send(err);
+	    res.status(RequestStatus.BAD_REQUEST).json(err);
 	  })
 	  .then((result) => {
 	    res.status(RequestStatus.OK).json({ fics: result });
 	  });
 };
 
+exports.ficsByUser = (req, res) => {
+  dataStoreUtil.findFicsByQuery({_author: req.params.user_id})
+    .then((result) => {
+      res.status(RequestStatus.OK).json({ fics: result });
+    })
+    .catch((error) => {
+      res.status(RequestStatus.BAD_REQUEST).json(error);
+    });
+}
+
+exports.searchFics = (req, res) => {
+  dataStoreUtil = findFicsByQuery(req.body.query)
+    .then((result) => {
+      res.status(RequestStatus.OK).json({ fics: result });
+    })
+    .catch((error) => {
+      res.status(RequestStatus.BAD_REQUEST).send(error);
+    });
+}
+
 exports.show = (req, res) => {
-	Fic.findById(req.params.fic_id)
+	dataStoreUtil.findFicById(req.params.fic_id)
 		.then((fic) => {
 			res.status(RequestStatus.OK).json(fic);
 		})

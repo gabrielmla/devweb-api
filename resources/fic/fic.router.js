@@ -13,6 +13,8 @@ var ficController = require('./fic.controller');
  */
 router.get('/', ficController.index);
 
+router.get('/search', ficController.searchFics);
+
 /**
  * @api {get} /fic Get all Fics
  * @apiName GetFics
@@ -25,6 +27,18 @@ router.get('/', ficController.index);
  * @apiSuccess {String} genre  Genres of the Fic.
  */
 router.get('/:fic_id', ficController.show);
+
+/**
+ * @api {get} /chapter Get all Fics of one Author (User)
+ * @apiName GetChapters
+ * @apiGroup Chapter
+ * @apiVersion 1.0.0
+ *
+ * @apiParam user_id  Id of the author.
+ *
+ * @apiSuccess {Object[]} chapters All Fics with the author id registred.
+ */
+router.get('/user/:user_id', ficController.ficsByUser);
 
 /**
  * @api {post} /fic Create a Fic

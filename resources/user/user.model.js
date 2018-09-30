@@ -46,7 +46,15 @@ var UserSchema = new Schema({
     type: String,
     maxlength: 140,
     default: "No description."
-  }
+  },
+	is_admin: {
+		type: Boolean,
+		default: false
+	},
+	created_at: {
+		type: Date,
+		default: Date.now
+	}
 });
 
 UserSchema.methods.generateHash = (password) => {

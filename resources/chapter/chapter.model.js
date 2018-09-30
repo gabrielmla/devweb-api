@@ -38,6 +38,19 @@ var ChapterSchema = new Schema({
 	}
 });
 
+ChapterSchema.pre('update', function() {
+  this.update({},{ $set: { updated_at: new Date() } });
+});
+
+ChapterSchema.pre('findOneAndUpdate', function() {
+  this.update({},{ $set: { updated_at: new Date() } });
+});
+
+ChapterSchema.pre('save', function(next) {
+  this.words += this.text.length;
+  next();
+});
+
 var Chapter = mongoose.model('Chapter', ChapterSchema);
 
 module.exports = Chapter;

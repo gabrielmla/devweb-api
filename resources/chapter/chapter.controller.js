@@ -1,19 +1,30 @@
 var Chapter       = require('./chapter.model');
+var dataStoreUtil = require('../../dataStore/utils');
 var RequestStatus = require('../../constants/requestStatus');
 var RequestMsgs   = require('../../constants/requestMsgs');
 
 exports.index = (req, res) => {
   Chapter.find({})
 	  .catch((err) => {
-	    res.status(RequestStatus.BAD_REQUEST).send(err);
+	    res.status(RequestStatus.BAD_REQUEST).json(err);
 	  })
 	  .then((result) => {
 	    res.status(RequestStatus.OK).json({ chapters: result });
 	  });
 };
 
+exports.chaptersByUser = (req, res) => {
+  dataStoreUtil.findChaptersByQuery({_author: req.params.user_id})
+    .then((chapters) => {
+      res.status(RequestStatus.OK).json({ chapters: result });
+    })
+    .catch((error) => {
+      res.status(RequestStatus.BAD_REQUEST).json(error);
+    });
+}
+
 exports.show = (req, res) => {
-	Chapter.findById(req.params.chapter_id)
+	dataStoreUtil.findChapterById(req.params.chapter_id)
 		.then((chapter) => {
 			res.status(RequestStatus.OK).json(chapter);
 		})
@@ -24,7 +35,7 @@ exports.show = (req, res) => {
 
 exports.create = (req, res) => {
   var chapter = new Chapter(req.body);
-  
+
   chapter.save()
     .then((createdChapter) => {
       res.status(RequestStatus.OK).json({ result: createdChapter, msg: 'Chapter created.' });

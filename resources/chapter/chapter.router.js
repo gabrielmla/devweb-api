@@ -27,6 +27,18 @@ router.get('/', chapterController.index);
 router.get('/:chapter_id', chapterController.show);
 
 /**
+ * @api {get} /chapter Get all Chapters of one Author (User)
+ * @apiName GetChapters
+ * @apiGroup Chapter
+ * @apiVersion 1.0.0
+ *
+ * @apiParam user_id  Id of the author.
+ *
+ * @apiSuccess {Object[]} chapters All chapters with the author id registred.
+ */
+router.get('/user/:user_id', chapterController.chaptersByUser);
+
+/**
  * @api {post} /chapter Create a Chapter
  * @apiName PostChapter
  * @apiGroup Chapter

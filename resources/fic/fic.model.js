@@ -29,11 +29,13 @@ var FicSchema = new Schema({
 	},
 	category: {
 		type: String,
-		required: true
+		required: true,
+		default: "None"
 	},
 	genre: {
 		type: [String],
-		required: true
+		required: true,
+		default: ["None"]
 	},
 	adult_content: {
 		type: Boolean,
@@ -47,6 +49,10 @@ var FicSchema = new Schema({
 	words: {
 		type: Number
 	},
+	views: {
+		type: Number,
+		default: 0
+	},
 	created_at: {
 		type: Date,
 		default: Date.now
@@ -55,6 +61,14 @@ var FicSchema = new Schema({
 		type: Date,
 		default: Date.now
 	}
+});
+
+FicSchema.pre('update', function(next) {
+  this.update({},{ $set: { updated_at: new Date() } });
+});
+
+FicSchema.pre('updateOne', function() {
+  this.update({},{ $set: { updated_at: new Date() } });
 });
 
 var Fic = mongoose.model('Fic', FicSchema);
