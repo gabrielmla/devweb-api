@@ -75,10 +75,14 @@ exports.updateFic = (id, body) => {
  *    DELETES
  */
 
-exports.deleteFic = async (id) => {
-  let fic = Fic
-    .deleteOne({ _id: id })
-    .exec();
+ exports.deleteFic = async (id) => {
+   let fic = await Fic.findById(id).exec();
+   let deleteChaptersPromises = fic._chapters.map((chapterId) => {
+     Chapter.deleteOne({ _id: chapterId }).exec();
+   });
 
-  return fic;
-}
+   Promise.all(deleteChaptersPromises).then(() => {
+     let deleteFic = Fic.deleteOne({ _id: id }).exec();
+     return deleteFic;
+   });
+ }
