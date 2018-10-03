@@ -1,10 +1,10 @@
-var Chapter       = require('./chapter.model');
-var dataStoreUtil = require('../../dataStore/utils');
-var RequestStatus = require('../../constants/requestStatus');
-var RequestMsgs   = require('../../constants/requestMsgs');
+var Chapter           = require('./chapter.model');
+var chapterRepository = require('../../dataStore/chapter.repository');
+var RequestStatus     = require('../../constants/requestStatus');
+var RequestMsgs       = require('../../constants/requestMsgs');
 
 exports.index = (req, res) => {
-  Chapter.find({})
+  chapterRepository.findChapters()
 	  .catch((err) => {
 	    res.status(RequestStatus.BAD_REQUEST).json(err);
 	  })
@@ -14,7 +14,7 @@ exports.index = (req, res) => {
 };
 
 exports.chaptersByUser = (req, res) => {
-  dataStoreUtil.findChaptersByQuery({_author: req.params.user_id})
+  chapterRepository.findChaptersByQuery({_author: req.params.user_id})
     .then((chapters) => {
       res.status(RequestStatus.OK).json({ chapters: result });
     })
@@ -24,7 +24,7 @@ exports.chaptersByUser = (req, res) => {
 }
 
 exports.show = (req, res) => {
-	dataStoreUtil.findChapterById(req.params.chapter_id)
+	chapterRepository.findChapterById(req.params.chapter_id)
 		.then((chapter) => {
 			res.status(RequestStatus.OK).json(chapter);
 		})
@@ -34,9 +34,7 @@ exports.show = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  var chapter = new Chapter(req.body);
-
-  chapter.save()
+  chapterRepository.createChapter(req.body)
     .then((createdChapter) => {
       res.status(RequestStatus.OK).json({ result: createdChapter, msg: 'Chapter created.' });
     })
@@ -46,7 +44,7 @@ exports.create = (req, res) => {
 };
 
 exports.update = (req, res) => {
-	Chapter.updateOne({ _id: req.params.chapter_id }, { $set: req.body })
+	chapterRepository.updateChapter(req.params.chapter_id, req.body)
 		.then((updatedChapter) => {
 			res.status(RequestStatus.OK).json({result: updatedChapter, msg: 'Chapter updated.'});
 		})
@@ -56,7 +54,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-	Chapter.deleteOne({ _id: req.params.chapter_id })
+	chapterRepository.deleteChapter(req.params.chapter_id)
 		.then(() => {
 			res.status(RequestStatus.OK).json({msg: 'Chapter deleted.'});
 		})

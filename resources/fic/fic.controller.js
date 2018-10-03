@@ -1,10 +1,10 @@
 var Fic           = require('./fic.model');
-var dataStoreUtil = require('../../dataStore/utils');
+var ficRepository = require('../../dataStore/fic.repository');
 var RequestStatus = require('../../constants/requestStatus');
 var RequestMsgs   = require('../../constants/requestMsgs');
 
 exports.index = (req, res) => {
-  Fic.find({})
+  ficRepository.findFics()
 	  .catch((err) => {
 	    res.status(RequestStatus.BAD_REQUEST).json(err);
 	  })
@@ -14,7 +14,7 @@ exports.index = (req, res) => {
 };
 
 exports.ficsByUser = (req, res) => {
-  dataStoreUtil.findFicsByQuery({_author: req.params.user_id})
+  ficRepository.findFicsByQuery({_author: req.params.user_id})
     .then((result) => {
       res.status(RequestStatus.OK).json({ fics: result });
     })
@@ -24,7 +24,7 @@ exports.ficsByUser = (req, res) => {
 }
 
 exports.searchFics = (req, res) => {
-  dataStoreUtil = findFicsByQuery(req.body.query)
+  ficRepository.findFicsByQuery(req.body.query)
     .then((result) => {
       res.status(RequestStatus.OK).json({ fics: result });
     })
@@ -34,7 +34,7 @@ exports.searchFics = (req, res) => {
 }
 
 exports.show = (req, res) => {
-	dataStoreUtil.findFicById(req.params.fic_id)
+	ficRepository.findFicById(req.params.fic_id)
 		.then((fic) => {
 			res.status(RequestStatus.OK).json(fic);
 		})
@@ -44,9 +44,7 @@ exports.show = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  var fic = new Fic(req.body);
-
-  fic.save()
+  ficRepository.createFic(req.body)
     .then((createdFic) => {
       res.status(RequestStatus.OK).json({ result: createdFic, msg: 'Fic created.' });
     })
@@ -56,7 +54,7 @@ exports.create = (req, res) => {
 };
 
 exports.update = (req, res) => {
-	Fic.updateOne({ _id: req.params.fic_id }, { $set: req.body })
+	ficRepository.updateFic(req.params.fic_id, req.body)
 		.then((updatedFic) => {
 			res.status(RequestStatus.OK).json({result: updatedFic, msg: 'Fic updated.'});
 		})
@@ -66,7 +64,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-	Fic.deleteOne({ _id: req.params.fic_id })
+	ficRepository.deleteFic(req.params.fic_id)
 		.then(() => {
 			res.status(RequestStatus.OK).json({msg: 'Fic deleted.'});
 		})
