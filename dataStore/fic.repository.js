@@ -63,6 +63,14 @@ exports.createFic = (body) => {
   return fic;
 }
 
+exports.addChapter = (ficId, chapterId) => {
+  return Fic.findOneAndUpdate({ '_id': ficId }, { $addToSet: { '_chapters': chapterId }}).exec();
+}
+
+exports.removeChapter = (ficId, chapterId) => {
+  return Fic.findOneAndUpdate({ '_id': ficId }, { $pull: { '_chapters': chapterId }}).exec();
+}
+
 exports.updateFic = (id, body) => {
   let fic = Fic
     .updateOne({ _id: id }, { $set: body })

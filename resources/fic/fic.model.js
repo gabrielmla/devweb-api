@@ -42,10 +42,10 @@ var FicSchema = new Schema({
 		required: true,
 		default: false
 	},
-	_chapters: {
-		type: [mongoose.Schema.Types.ObjectId],
+	_chapters: [{
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Chapter'
-	},
+	}],
 	words: {
 		type: Number
 	},

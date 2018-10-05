@@ -1,5 +1,6 @@
 var User          = require('../resources/user/user.model');
 var Chapter       = require('../resources/chapter/chapter.model');
+var Fic           = require('../resources/fic/fic.model');
 
 /*
  *    FINDS
@@ -57,10 +58,12 @@ exports.updateChapter = (id, body) => {
  *    DELETES
  */
 
-exports.deleteChapter = (id) => {
-  let chapter = Chapter
+exports.deleteChapter = async (id) => {
+  let chapter = await Chapter.findById(id).exec();
+  let fic = Fic.findOneAndUpdate({ _id: chapter._fic }, { $pull: { _chapters: chapter._id }}).exec();
+  let deleteChapter = Chapter
     .deleteOne({ _id: id })
     .exec();
 
-  return chapter;
+  return deleteChapter;
 }
