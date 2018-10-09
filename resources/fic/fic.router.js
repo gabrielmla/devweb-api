@@ -13,10 +13,20 @@ var ficController = require('./fic.controller');
  */
 router.get('/', ficController.index);
 
+/**
+ * @api {get} /fic?field=value Search for Fics
+ * @apiName GetFics
+ * @apiGroup Fic
+ * @apiVersion 1.0.0
+ *
+ * @apiParam query  The search terms with repective search fields. Ex: title=test
+ *
+ * @apiSuccess {Object[]} fics All fics that match with the query.
+ */
 router.get('/search', ficController.searchFics);
 
 /**
- * @api {get} /fic Get all Fics
+ * @api {get} /fic/:fic_id Get all Fics
  * @apiName GetFics
  * @apiGroup Fic
  * @apiVersion 1.0.0
@@ -29,7 +39,7 @@ router.get('/search', ficController.searchFics);
 router.get('/:fic_id', ficController.show);
 
 /**
- * @api {get} /chapter Get all Fics of one Author (User)
+ * @api {get} /fic/user/:user_id Get all Fics of one Author (User)
  * @apiName GetChapters
  * @apiGroup Chapter
  * @apiVersion 1.0.0
@@ -61,7 +71,35 @@ router.get('/user/:user_id', ficController.ficsByUser);
 router.post('/', ficController.create);
 
 /**
- * @api {put} /fic/:id Update a Fic
+ * @api {put} /fic/addChapter Add a chapter to a Fic _chapters field.
+ * @apiName GetChapters
+ * @apiGroup Chapter
+ * @apiVersion 1.0.0
+ *
+ * @apiParam fic_id  Id of the fic.
+ * @apiParam chapter_id Id of the chapter.
+ *
+ * @apiSuccess {Object[]} result The fic.
+ * @apiSuccess String msg The operation result message.
+ */
+router.put('/addChapter', ficController.addChapter);
+
+/**
+ * @api {get} /fic/removeChapter Remove a chapter from a Fic _chapters field.
+ * @apiName GetChapters
+ * @apiGroup Chapter
+ * @apiVersion 1.0.0
+ *
+ * @apiParam fic_id  Id of the fic.
+ * @apiParam chapter_id Id of the chapter.
+ *
+ * @apiSuccess {Object[]} result The fic.
+ * @apiSuccess String msg The operation result message.
+ */
+router.put('/removeChapter', ficController.removeChapter);
+
+/**
+ * @api {put} /fic/:fic_id Update a Fic
  * @apiName PutFic
  * @apiGroup Fic
  * @apiVersion 1.0.0
@@ -81,7 +119,7 @@ router.post('/', ficController.create);
 router.put('/:fic_id', ficController.update);
 
 /**
- * @api {delete} /fic/:id Delete Fic
+ * @api {delete} /fic/:fic_id Delete Fic
  * @apiName DeleteFic
  * @apiGroup Fic
  * @apiVersion 1.0.0

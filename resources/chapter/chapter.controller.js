@@ -1,4 +1,6 @@
 var Chapter           = require('./chapter.model');
+var Fic               = require('../fic/fic.model');
+var User              = require('../user/user.model');
 var chapterRepository = require('../../dataStore/chapter.repository');
 var RequestStatus     = require('../../constants/requestStatus');
 var RequestMsgs       = require('../../constants/requestMsgs');
@@ -33,14 +35,21 @@ exports.show = (req, res) => {
 		});
 };
 
-exports.create = (req, res) => {
-  chapterRepository.createChapter(req.body)
-    .then((createdChapter) => {
-      res.status(RequestStatus.OK).json({ result: createdChapter, msg: 'Chapter created.' });
-    })
-    .catch((error) => {
-      res.status(RequestStatus.BAD_REQUEST).json(error);
-    });
+exports.create = async (req, res) => {
+  let fic = await Fic.findById(req.body._fic);
+  let author = await User.findById(req.body._author);
+
+  if (fic && author) {
+    chapterRepository.createChapter(req.body)
+      .then((createdChapter) => {
+        res.status(RequestStatus.OK).json({ result: createdChapter, msg: 'Chapter created.' });
+      })
+      .catch((error) => {
+        res.status(RequestStatus.BAD_REQUEST).json(error);
+      });
+  } else {
+    res.status(RequestStatus.BAD_REQUEST).json({ msg: 'The fic_id or author_id sent does not exists.' });
+  }
 };
 
 exports.update = (req, res) => {
