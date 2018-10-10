@@ -31,7 +31,7 @@ O servidor será executado no endereço:  `http://localhost:3000/`
 A documentação pode ser acessada em: `http://localhost:3000/api/`
 
 ##### Testes
-Para rodar a switch de testes basta utilizar o seguinte comando
+Para rodar a suite de testes basta utilizar o seguinte comando
 ``` 
 $ npm test 
 ```
