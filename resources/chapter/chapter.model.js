@@ -25,17 +25,17 @@ var ChapterSchema = new Schema({
     type: String,
     required: true
   },
-	words: {
-		type: Number
-	},
-	created_at: {
-		type: Date,
-		default: Date.now
-	},
-	updated_at: {
-		type: Date,
-		default: Date.now
-	}
+  words: {
+  	type: Number
+  },
+  created_at: {
+  	type: Date,
+  	default: Date.now
+  },
+  updated_at: {
+  	type: Date,
+  	default: Date.now
+  }
 });
 
 ChapterSchema.pre('update', function() {
@@ -44,11 +44,6 @@ ChapterSchema.pre('update', function() {
 
 ChapterSchema.pre('findOneAndUpdate', function() {
   this.update({},{ $set: { updated_at: new Date() } });
-});
-
-ChapterSchema.pre('save', function(next) {
-  this.words += this.text.length;
-  next();
 });
 
 var Chapter = mongoose.model('Chapter', ChapterSchema);

@@ -1,5 +1,6 @@
 var User          = require('../resources/user/user.model');
 var Fic           = require('../resources/fic/fic.model');
+var Chapter       = require('../resources/chapter/chapter.model');
 
 /*
  *    FINDS
