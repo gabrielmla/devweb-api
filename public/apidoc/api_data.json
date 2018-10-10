@@ -130,6 +130,135 @@
   {
     "type": "get",
     "url": "/chapter",
+    "title": "Get all Chapters of one Author (User)",
+    "name": "GetChapters",
+    "group": "Chapter",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "user_id",
+            "description": "<p>Id of the author.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "chapters",
+            "description": "<p>All chapters with the author id registred.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "resources/chapter/chapter.router.js",
+    "groupTitle": "Chapter"
+  },
+  {
+    "type": "put",
+    "url": "/fic/addChapter",
+    "title": "Add a chapter to a Fic _chapters field.",
+    "name": "GetChapters",
+    "group": "Chapter",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "fic_id",
+            "description": "<p>Id of the fic.</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "chapter_id",
+            "description": "<p>Id of the chapter.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "result",
+            "description": "<p>The fic.</p>"
+          },
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "String",
+            "description": "<p>msg The operation result message.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "resources/fic/fic.router.js",
+    "groupTitle": "Chapter"
+  },
+  {
+    "type": "get",
+    "url": "/fic/removeChapter",
+    "title": "Remove a chapter from a Fic _chapters field.",
+    "name": "GetChapters",
+    "group": "Chapter",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "fic_id",
+            "description": "<p>Id of the fic.</p>"
+          },
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "chapter_id",
+            "description": "<p>Id of the chapter.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "result",
+            "description": "<p>The fic.</p>"
+          },
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "String",
+            "description": "<p>msg The operation result message.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "resources/fic/fic.router.js",
+    "groupTitle": "Chapter"
+  },
+  {
+    "type": "get",
+    "url": "/chapter",
     "title": "Get all Chapters",
     "name": "GetChapters",
     "group": "Chapter",
@@ -192,6 +321,41 @@
       }
     },
     "filename": "resources/chapter/chapter.router.js",
+    "groupTitle": "Chapter"
+  },
+  {
+    "type": "get",
+    "url": "/fic/user/:user_id",
+    "title": "Get all Fics of one Author (User)",
+    "name": "GetChapters",
+    "group": "Chapter",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "user_id",
+            "description": "<p>Id of the author.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "chapters",
+            "description": "<p>All Fics with the author id registred.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "resources/fic/fic.router.js",
     "groupTitle": "Chapter"
   },
   {
@@ -372,7 +536,7 @@
   },
   {
     "type": "delete",
-    "url": "/fic/:id",
+    "url": "/fic/:fic_id",
     "title": "Delete Fic",
     "name": "DeleteFic",
     "group": "Fic",
@@ -406,7 +570,42 @@
   },
   {
     "type": "get",
-    "url": "/fic",
+    "url": "/fic?field=value",
+    "title": "Search for Fics",
+    "name": "GetFics",
+    "group": "Fic",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "optional": false,
+            "field": "query",
+            "description": "<p>The search terms with repective search fields. Ex: title=test</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "fics",
+            "description": "<p>All fics that match with the query.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "resources/fic/fic.router.js",
+    "groupTitle": "Fic"
+  },
+  {
+    "type": "get",
+    "url": "/fic/:fic_id",
     "title": "Get all Fics",
     "name": "GetFics",
     "group": "Fic",
@@ -561,7 +760,7 @@
   },
   {
     "type": "put",
-    "url": "/fic/:id",
+    "url": "/fic/:fic_id",
     "title": "Update a Fic",
     "name": "PutFic",
     "group": "Fic",
