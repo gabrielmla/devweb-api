@@ -1,8 +1,8 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
-var userController = require('./user.controller');
-var authController = require('../auth/auth.controller');
+var userController = require("./user.controller");
+var authController = require("../auth/auth.controller");
 
 /**
  * @api {get} /user Get all Users
@@ -15,7 +15,7 @@ var authController = require('../auth/auth.controller');
  * @apiSuccess {String} user.username  Username name of the User.
  * @apiSuccess {String} user.email  Email of the User.
  */
-router.get('/', userController.index);
+router.get("/", userController.index);
 
 /**
  * @api {get} /user/:id Get User
@@ -29,7 +29,7 @@ router.get('/', userController.index);
  * @apiSuccess {String} username  Username name of the User.
  * @apiSuccess {String} email  Email of the User.
  */
-router.get('/:user_id', userController.show);
+router.get("/:user_id", userController.show);
 
 /**
  * @api {post} /user Create a User
@@ -47,7 +47,7 @@ router.get('/:user_id', userController.show);
  * @apiSuccess {String} result.email  Email of the User.
  * @apiSuccess {String} msg Response message.
  */
-router.post('/', userController.create);
+router.post("/", userController.create);
 
 /**
  * @api {put} /user/:id Update a User
@@ -65,7 +65,11 @@ router.post('/', userController.create);
  * @apiSuccess {String} result.email  Email of the User.
  * @apiSuccess {String} msg Response message.
  */
-router.put('/:user_id', userController.update);
+router.put("/:user_id", userController.update);
+
+router.put("/:user_id/addFavFic/:fic_id", userController.addFavFic);
+
+router.put("/:user_id/removeFavFic/:fic_id", userController.removeFavFic);
 
 /**
  * @api {delete} /user/:id Delete User
@@ -77,6 +81,6 @@ router.put('/:user_id', userController.update);
  *
  * @apiSuccess msg Response message.
  */
-router.delete('/:user_id', userController.delete);
+router.delete("/:user_id", userController.delete);
 
 module.exports = router;
