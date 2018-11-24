@@ -65,7 +65,8 @@ app.use(methodOverride("X-HTTP-Method-Override"));
 // ======= ROUTES
 var corsOptions = require("./config/cors");
 if (ENV == "production") {
-  app.use(cors(corsOptions));
+  // CorsOptions
+  app.use(cors());
 } else {
   app.use(cors());
 }
