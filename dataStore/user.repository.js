@@ -24,7 +24,7 @@ exports.findUserById = userId => {
 };
 
 exports.findUserByProfileName = profileName => {
-  let uset = User.find({ "profile_name": profileName })
+  let user = User.find({ "profile_name": profileName })
     .populate("_fics")
     .populate("_chapters")
     .populate("fav_fics")
