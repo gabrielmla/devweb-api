@@ -50,19 +50,19 @@ var UserSchema = new Schema({
   _fics: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Fics"
+      ref: "Fic"
     }
   ],
   _chapters: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Chapters"
+      ref: "Chapter"
     }
   ],
   fav_fics: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Fics"
+      ref: "Fic"
     }
   ],
   social: {
