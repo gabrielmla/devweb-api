@@ -16,7 +16,7 @@ exports.index = (req, res) => {
 
 exports.show = (req, res) => {
   userRepository
-    .findUserById(req.params.user_id)
+    .findUserByProfileName(req.params.profile_name)
     .then(user => {
       res.status(RequestStatus.OK).json(user);
     })
