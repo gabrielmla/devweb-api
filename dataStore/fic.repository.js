@@ -44,7 +44,9 @@ exports.findPopularFics = popularity => {
         $lte: new Date()
       };
   }
-  let fics = Fic.find({ updated_at: query }, { sort: { views: -1 } }).exec();
+  let fics = Fic.find({ updated_at: query }, { sort: { views: -1 } })
+    .limit(15)
+    .exec();
   return fics;
 };
 
@@ -71,6 +73,10 @@ exports.findFicsGenres = () => {
     .exec();
 
   return categories;
+};
+
+exports.searchByTitle = ficName => {
+  return Fic.find({ title: new RegExp(ficName, "i") }).limit(5);
 };
 
 /*

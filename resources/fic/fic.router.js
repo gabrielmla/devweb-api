@@ -1,7 +1,7 @@
-var express = require('express');
-var router  = express.Router();
+var express = require("express");
+var router = express.Router();
 
-var ficController = require('./fic.controller');
+var ficController = require("./fic.controller");
 
 /**
  * @api {get} /fic Get all Fics
@@ -11,7 +11,7 @@ var ficController = require('./fic.controller');
  *
  * @apiSuccess {Object[]} fics All fics registred.
  */
-router.get('/', ficController.index);
+router.get("/", ficController.index);
 
 /**
  * @api {get} /fic?field=value Search for Fics
@@ -23,7 +23,7 @@ router.get('/', ficController.index);
  *
  * @apiSuccess {Object[]} fics All fics that match with the query.
  */
-router.get('/search', ficController.searchFics);
+router.get("/search", ficController.searchFics);
 
 /**
  * @api {get} /fic/:fic_id Get all Fics
@@ -36,7 +36,7 @@ router.get('/search', ficController.searchFics);
  * @apiSuccess {String} category  Category of the Fic.
  * @apiSuccess {String} genre  Genres of the Fic.
  */
-router.get('/:fic_id', ficController.show);
+router.get("/:fic_id", ficController.show);
 
 /**
  * @api {get} /fic/user/:user_id Get all Fics of one Author (User)
@@ -48,7 +48,7 @@ router.get('/:fic_id', ficController.show);
  *
  * @apiSuccess {Object[]} chapters All Fics with the author id registred.
  */
-router.get('/user/:user_id', ficController.ficsByUser);
+router.get("/user/:user_id", ficController.ficsByUser);
 
 /**
  * @api {post} /fic Create a Fic
@@ -68,7 +68,7 @@ router.get('/user/:user_id', ficController.ficsByUser);
  * @apiSuccess {String[]} result.genre  Genres of the Fic.
  * @apiSuccess {String} msg Response message.
  */
-router.post('/', ficController.create);
+router.post("/", ficController.create);
 
 /**
  * @api {put} /fic/addChapter Add a chapter to a Fic _chapters field.
@@ -82,7 +82,7 @@ router.post('/', ficController.create);
  * @apiSuccess {Object[]} result The fic.
  * @apiSuccess String msg The operation result message.
  */
-router.put('/addChapter', ficController.addChapter);
+router.put("/addChapter", ficController.addChapter);
 
 /**
  * @api {get} /fic/removeChapter Remove a chapter from a Fic _chapters field.
@@ -96,7 +96,7 @@ router.put('/addChapter', ficController.addChapter);
  * @apiSuccess {Object[]} result The fic.
  * @apiSuccess String msg The operation result message.
  */
-router.put('/removeChapter', ficController.removeChapter);
+router.put("/removeChapter", ficController.removeChapter);
 
 /**
  * @api {put} /fic/:fic_id Update a Fic
@@ -116,7 +116,7 @@ router.put('/removeChapter', ficController.removeChapter);
  * @apiSuccess {String[]} result.genre  Genres of the Fic.
  * @apiSuccess {String} msg Response message.
  */
-router.put('/:fic_id', ficController.update);
+router.put("/:fic_id", ficController.update);
 
 /**
  * @api {delete} /fic/:fic_id Delete Fic
@@ -128,6 +128,6 @@ router.put('/:fic_id', ficController.update);
  *
  * @apiSuccess msg Response message.
  */
-router.delete('/:fic_id', ficController.delete);
+router.delete("/:fic_id", ficController.delete);
 
 module.exports = router;

@@ -55,9 +55,22 @@ exports.ficsByUser = (req, res) => {
     });
 };
 
-exports.searchFics = (req, res) => {
+exports.show = (req, res) => {
   ficRepository
-    .findFicsByQuery(req.query)
+    .findFicById(req.params.fic_id)
+    .then(fic => {
+      res.status(RequestStatus.OK).json(fic);
+    })
+    .catch(error => {
+      res.status(RequestStatus.BAD_REQUEST).json(error);
+    });
+};
+
+exports.searchFics = async (req, res) => {
+  const ficName = req.query.title;
+
+  ficRepository
+    .searchByTitle(ficName)
     .then(result => {
       if (result.length > 0) {
         res.status(RequestStatus.OK).json({ fics: result });
@@ -69,17 +82,6 @@ exports.searchFics = (req, res) => {
     })
     .catch(error => {
       res.status(RequestStatus.BAD_REQUEST).send(error);
-    });
-};
-
-exports.show = (req, res) => {
-  ficRepository
-    .findFicById(req.params.fic_id)
-    .then(fic => {
-      res.status(RequestStatus.OK).json(fic);
-    })
-    .catch(error => {
-      res.status(RequestStatus.BAD_REQUEST).json(error);
     });
 };
 
