@@ -78,7 +78,9 @@ exports.findFicsGenres = () => {
 };
 
 exports.searchByTitle = ficName => {
-  return Fic.find({ title: new RegExp(ficName, "i") }).limit(5);
+  return Fic.find({ title: new RegExp(ficName, "i") })
+    .select("_id", "title", "category")
+    .limit(5);
 };
 
 /*
