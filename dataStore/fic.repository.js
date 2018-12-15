@@ -44,8 +44,10 @@ exports.findPopularFics = popularity => {
         $lte: new Date()
       };
   }
-  let fics = Fic.find({ updated_at: query }, { sort: { views: -1 } })
+
+  let fics = Fic.find({ updated_at: query }, null, { sort: { views: -1 } })
     .limit(15)
+    .populate("_author")
     .exec();
   return fics;
 };

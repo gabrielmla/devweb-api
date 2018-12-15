@@ -17,10 +17,21 @@ exports.findUserById = userId => {
   let user = User.findById(userId)
     .populate("_fics")
     .populate("_chapters")
+    .populate("fav_fics")
     .exec();
 
   return user;
 };
+
+exports.findUserByProfileName = profileName => {
+  let user = User.find({ "profile_name": profileName })
+    .populate("_fics")
+    .populate("_chapters")
+    .populate("fav_fics")
+    .exec();
+
+  return user;
+}
 
 /*
  *    CREATES/UPDATES

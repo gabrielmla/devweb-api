@@ -18,18 +18,18 @@ var authController = require("../auth/auth.controller");
 router.get("/", userController.index);
 
 /**
- * @api {get} /user/:id Get User
+ * @api {get} /user/:profile_name Get User
  * @apiName GetUser
  * @apiGroup User
  * @apiVersion 1.0.0
  *
- * @apiParam id Users unique ID.
+ * @apiParam profile_name Users unique profile_name.
  *
  * @apiSuccess {String} profile_name  Profile name of the User.
  * @apiSuccess {String} username  Username name of the User.
  * @apiSuccess {String} email  Email of the User.
  */
-router.get("/:user_id", userController.show);
+router.get("/:profile_name", userController.show);
 
 /**
  * @api {post} /user Create a User

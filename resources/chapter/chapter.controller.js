@@ -2,6 +2,7 @@ var Chapter = require("./chapter.model");
 var Fic = require("../fic/fic.model");
 var User = require("../user/user.model");
 var chapterRepository = require("../../dataStore/chapter.repository");
+var ficRepository = require("../../dataStore/fic.repository");
 var RequestStatus = require("../../constants/requestStatus");
 var RequestMsgs = require("../../constants/requestMsgs");
 
@@ -50,6 +51,8 @@ exports.create = async (req, res) => {
           { _id: createdChapter._author },
           { $addToSet: { _chapters: createdChapter._id } }
         ).exec();
+
+        ficRepository.addChapter(fic._id, createdChapter._id);
 
         res
           .status(RequestStatus.OK)

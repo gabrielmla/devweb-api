@@ -25,6 +25,8 @@ router.get("/", ficController.index);
  */
 router.get("/search", ficController.searchFics);
 
+router.get('/popular', ficController.popularFics);
+
 /**
  * @api {get} /fic/:fic_id Get all Fics
  * @apiName GetFics

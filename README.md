@@ -23,10 +23,10 @@ $ npm install
 ``` 
 $ npm app.js 
 ```
-O servidor será executado no endereço:  `http://localhost:3000/`
+O servidor será executado no endereço:  `http://localhost:5000/`
 
 ##### Documentação
-A documentação pode ser acessada em: `http://localhost:3000/api/`
+A documentação pode ser acessada em: `http://localhost:5000/api/`
 
 ##### Testes
 Para rodar a suite de testes basta utilizar o seguinte comando
